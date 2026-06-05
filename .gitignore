@@ -1,0 +1,23 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Environments
+.env
+.venv
+venv/
+ENV/
+
+# Local data files (except tracking files)
+data/processed/*
+!data/processed/.gitkeep
+
+# Saved Models (except tracking files)
+models/*
+!models/.gitkeep
+*.pkl
+
+# OS files
+.DS_Store
+Thumbs.db

@@ -1,0 +1,49 @@
+﻿"Panjang Jalan Menurut Kabupaten/Kota dan Kondisi Jalan  di Provinsi Jawa Tengah (km), 2020",,,,,
+"Length of Roads by Regency/Municipality and Road  Condition  in Jawa Tengah Province (km), 2020",,,,,
+"Kabupaten/Kota                    
+Regency/Municipality",,"Jenis Permukaan Jalan
+Type of Road Surface",,,
+,,"Baik
+Good","Sedang
+Average","Rusak
+Damaged","Rusak Berat
+Severely Damaged"
+Kabupaten/Regency,,,,,
+1.,Cilacap,     745 ,     151 ,     169 ,     204 
+2.,Banyumas,     572 ,     91 ,     76 ,     66 
+3.,Purbalingga,     376 ,     360 ,     105 ,     46 
+4.,Banjarnegara,     658 ,     47 ,     132 ,     103 
+5.,Kebumen,     509 ,     177 ,     121 ,     153 
+6.,Purworejo,     480 ,     108 ,     96 ,     86 
+7.,Wonosobo,     420 ,     243 ,     263 ,     73 
+8.,Magelang,     742 ,     144 ,     96 ,     19 
+9.,Boyolali,     501 ,     77 ,     63 ,     36 
+10.,Klaten,     471 ,     169 ,     63 ,     67 
+11.,Sukoharjo,     121 ,     407 ,     57 ,     20 
+12.,Wonogiri,     769 ,     139 ,     120 ,     11 
+13.,Karanganyar,     510 ,     257 ,     222 ,     58 
+14.,Sragen,     743 ,     66 ,     128 ,     84 
+15.,Grobogan,     662 ,     42 ,     113 ,     101 
+16.,Blora,     403 ,     287 ,     247 ,     273 
+17.,Rembang,     427 ,     137 ,     44 ,     21 
+18.,Pati,     520 ,     110 ,     93 ,     115 
+19.,Kudus,     314 ,     182 ,     89 ,     54 
+20.,Jepara,     418 ,     117 ,     137 ,     201 
+21.,Demak,     23 ,     7 ,,     30 
+22.,Semarang,     570 ,     90 ,     46 ,     41 
+23.,Temanggung,     414 ,     122 ,     73 ,     106 
+24.,Kendal,     383 ,     166 ,     115 ,     257 
+25.,Batang,     251 ,     18 ,     27 ,     70 
+26.,Pekalongan,     481 ,     101 ,     18 ,     121 
+27.,Pemalang,     437 ,     90 ,     112 ,     117 
+28.,Tegal,     541 ,     83 ,     119 ,     112 
+29.,Brebes,     484 ,     47 ,     67 ,
+Kota/Municipality,,,,,
+1.,Magelang,     70 ,     31 ,     16 , -   
+2.,Surakarta,     539 ,     107 ,     23 ,
+3.,Salatiga,     294 ,     12 ,     29 ,     2 
+4.,Semarang,     285 ,     428 ,     116 ,     11 
+5.,Pekalongan,     96 ,     22 ,     18 ,     17 
+6.,Tegal,     205 ,,     23 ,     3 
+Jawa Tengah,, 15 432 , 4 636 , 3 240 , 26 790 
+Sumber/Source : Dinas PU Binamarga dan Cipta Karya/ Public Works and Human Settlements Agency,,,,,
