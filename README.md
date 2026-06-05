@@ -1,4 +1,4 @@
-# Analisis Hubungan antara Kecelakaan Lalu Lintas, Volume Kendaraan, Kondisi Jalan, dan Faktor Cuaca di Provinsi Jawa Tengah Tahun 2020
+# Analisis dan Prediksi Hubungan antara Kecelakaan Lalu Lintas, Volume Kendaraan, Kondisi Jalan, dan Faktor Cuaca di Provinsi Jawa Tengah Tahun 2020
 
 ## Kontributor
 
