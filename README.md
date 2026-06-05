@@ -1,93 +1,117 @@
+# Analisis Hubungan antara Kecelakaan Lalu Lintas, Volume Kendaraan, Kondisi Jalan, dan Faktor Cuaca di Provinsi Jawa Tengah Tahun 2020
 
-## Project Information
+## Kontributor
 
-**Project Name**: Analisis Prediktif Tingkat Kecelakaan Lalu Lintas di Jawa Tengah
-**Created By**: Data Engineering Kelompok 1
-**Date**: February 10, 2026
-**Version**: 1.0
+| Nama Lengkap                 | NIM        | Peran           |
+| ---------------------------- | ---------- | --------------- |
+| Habib Hajid Taqiudin         | 2443111043 | Project Manager |
+| Mohammad Dani Taufiqurrohman | 2443111048 | Data Engineer   |
+| Novandy Triarto Wahyono      | 2443111053 | Data Analyst    |
 
-## 1. Executive Summary
+---
 
-### 1.1 Project Overview
+## Deskripsi Proyek
 
-- **Tujuan Project**: Mengembangkan sistem analitik untuk prediksi tingkat kecelakaan lalu lintas di Jawa Tengah menggunakan berbagai sumber open data
-- **Scope Project**: Integrasi data real-time dari API cuaca, titik rawan kecelakaan (blackspot), dan volume kendaraan di jalur utama Jawa Tengah.
-- **Expected Outcomes**: Dashboard pemetaan risiko kecelakaan prediktif
-- **Timeline**: 4 bulan (Februari - Juni 2026)
+Proyek ini dikembangkan untuk menganalisis korelasi antara tingkat fatalitas kecelakaan lalu lintas (korban meninggal), volume kendaraan bermotor, kondisi infrastruktur jalan, dan faktor rata-rata cuaca di 35 Kabupaten/Kota di Provinsi Jawa Tengah pada tahun 2020. Data diekstraksi dari file publikasi resmi BPS Jawa Tengah dan BMKG, dibersihkan dan diintegrasikan menggunakan Python (Pandas), kemudian dimigrasikan ke database PostgreSQL cloud (Aiven) sebagai _Single Source of Truth_. Terakhir, data tersebut digunakan untuk melatih model Machine Learning Random Forest Regressor guna memprediksi jumlah korban meninggal.
 
-### 1.2 Stakeholders
+---
 
-- **Project Owner**: Kelompok 1
-- **Team Members**:
-  - Data Engineer: Mohammad Dani Taufiqurrohman
-  - Data Analyst: Novandy Triarto W.
-  - Project Manager: Habib Hajid Taqiuddin
-- **End Users**:
-  - Dinas Perhubungan
-  - Operator Transportasi
-  - Masyarakat umum
+## Manfaat Data
 
-## 2. Data Source Analysis
+- **Tujuan Proyek:** Proyek ini bertujuan untuk membangun pipeline data otomatis dan terstruktur yang mengintegrasikan data lalu lintas, infrastruktur, dan cuaca di Jawa Tengah, guna menghasilkan wawasan prediktif dan model machine learning mengenai fatalitas kecelakaan.
+- **Manfaat:**
+  - **Kebijakan Transportasi:** Memberikan rekomendasi berbasis data bagi Polda Jateng dan Dinas Perhubungan dalam memetakan daerah rawan kecelakaan.
+  - **Prioritas Infrastruktur:** Membantu Dinas Pekerjaan Umum dalam memprioritaskan perbaikan jalan berdasarkan dampaknya terhadap keselamatan jalan raya.
+  - **Penelitian & Akademis:** Menjadi referensi integrasi data multi-sumber (iklim, infrastruktur, transportasi) untuk analisis keselamatan publik.
+  - **Praktik Data Engineering:** Memberikan contoh penerapan nyata arsitektur ETL terpisah dan penyimpanan cloud relasional.
 
-### 2.1 Data Kendaraan Bermotor
+---
 
-#### Source Details
+## Serving Analisis
 
-- **Dataset Name**: Jumlah Kendaraan Bermotor Menurut Kabupaten/Kota dan Jenis Kendaraan di Provinsi Jawa Tengah (Unit)
-- **URL/Access Point**: https://jateng.bps.go.id/id/statistics-table/2/MTAwNiMy/jumlah-kendaraan-bermotor-menurut-kabupaten-kota-dan-jenis-kendaraan-di-provinsi-jawa-tengah
-- **Data Owner**: Badan Pusat Statistik Provinsi Jawa Tengah
-- **Last Update**: 10 Maret 2022
+Analisis pada proyek ini meliputi ekstraksi data dari laporan resmi BPS Jateng (korban kecelakaan, jumlah kendaraan, panjang jalan) dan data stasiun BMKG (cuaca), pembersihan, sinkronisasi nama daerah, serta penyimpanan ke database Aiven PostgreSQL. Data yang telah tersimpan siap disajikan ke platform visualisasi seperti PowerBI, Tableau, atau Streamlit untuk menganalisis pola kecelakaan per wilayah, korelasi kerusakan jalan terhadap fatalitas, dan dampak curah hujan tinggi terhadap frekuensi kecelakaan.
 
-#### Data Analysis
+---
 
-- **Format Data**: CSV
-- **Volume Data**: 2,173KB
-- **Time Coverage**: Januari 2024 - Desember 2024
-- **Data Quality**:
-  - Metadata jelas, kategori kendaraan mengikuti standar Samsat.
+## Serving Machine Learning
 
-### 2.2 Data Kecelakaan Lalu Lintas
+Model Machine Learning yang dikembangkan dilatih untuk memprediksi jumlah korban meninggal (`korban_meninggal`) berdasarkan fitur-fitur kendaraan, jalan, dan cuaca. Model ini diekspor ke dalam bentuk serialized file `.pkl` (`random_forest_polda.pkl` & `model_features.pkl`) di dalam folder `models/`. File ini siap disajikan secara langsung (_serving_) ke aplikasi web Streamlit untuk memprediksi potensi korban kecelakaan di suatu wilayah berdasarkan kondisi real-time yang diinputkan pengguna.
 
-#### Source Details
+---
 
-- **Dataset Name**: Jumlah Korban Kecelakaan Lalu Lintas di Wilayah Polda Jawa Tengah Tahun (Jiwa)
-- **URL/Access Point**: https://jateng.bps.go.id/id/statistics-table/2/NTYzIzI=/jumlah-korban-kecelakaan-lalu-lintas-di-wilayah-polda-jawa-tengah-tahun.html
-- **Creator/Publisher**: Badan Pusat Statistik Provinsi Jawa Tengah
-- **Last Update**: 8 April 2021
+## Pipeline
 
-#### Data Analysis
+### 1. Extract (Pengambilan Data)
 
-- **Format Data**: CSV
-- **Volume Data**: 1,32KB
-- **Data Fields**:
-  - Kabupate / Kota
-  - Meninggal
-  - Luka Berat
-  - Luka Ringan
-- **Quality Metrics**:
-  - Completeness: Tinggi
-  - Accuracy: High
-  - Consistency: Sangat baik
+- **Sumber Data:**
+  - Data Korban Kecelakaan Lalu Lintas Polda Jateng 2020 (BPS)
+  - Data Jumlah Kendaraan Bermotor menurut Kabupaten/Kota dan Jenis Kendaraan di Provinsi Jawa Tengah 2020 (BPS)
+  - Data Panjang Jalan menurut Kabupaten/Kota dan Kondisi Jalan di Provinsi Jawa Tengah 2020 (BPS)
+  - Data Rata-Rata Suhu Udara, Kelembaban, Curah Hujan, dll menurut Stasiun BMKG di Provinsi Jawa Tengah 2020 (BMKG)
+- **Metode Pengambilan:**
+  - File data mentah diunduh dalam format CSV dari portal data resmi BPS Jawa Tengah dan stasiun BMKG.
+  - Data disimpan secara lokal di dalam direktori `data/raw/` sebelum masuk ke proses pengolahan.
 
-### 2.3 Data Infrastruktur Jalan (BPS Jateng)
+### 2. Transform (Pembersihan & Transformasi)
 
-#### Source Details
+- **Pembersihan:**
+  - Melompati baris judul atas yang tidak beraturan (`skiprows`) dan membuang baris akumulasi total provinsi.
+  - Menghapus prefiks nomor urut di awal nama Kabupaten/Kota (misal: `1. Cilacap` diubah menjadi `Cilacap`) dan merapikan spasi.
+  - Membuang kolom yang tidak relevan atau kosong secara keseluruhan (seperti kolom `angin_min`).
+  - Menangani nilai kosong (missing value) pada kolom cuaca dengan imputasi nilai median masing-masing kolom untuk mempertahankan jumlah baris data.
+  - Mengubah kolom bertipe desimal yang berupa teks menjadi tipe numerik (`float`) dan kolom jumlah menjadi integer (`int64`).
+- **Transformasi:**
+  - Melakukan agregasi rata-rata data cuaca (`groupby().mean()`) per Kabupaten/Kota karena satu wilayah bisa memiliki beberapa stasiun BMKG.
+  - Membuat kunci pencocokan yang seragam (`Kunci_Cocok`) dengan mengubah teks menjadi huruf kecil (_lowercase_), menghapus kata "Kabupaten " dan "Kota ", serta merapikan spasi di ujung nama untuk memastikan akurasi proses penggabungan (_merge/join_).
+  - Menyatukan seluruh dataset secara _outer/left join_ dan menyelaraskan penamaan kolom ke format standar `snake_case`.
 
-- **Dataset Name**: Panjang Jalan Menurut Kab/Kota dan Kondisi Jalan (km)
-- **Endpoint URL**: (https://jateng.bps.go.id/id/statistics-table/1/MjQ1NSMx/panjang-jalan-menurut-kabupaten-kota-dan-kondisi-jalan--di-provinsi-jawa-tengah--km---2020.html)
-- **Provider**: BPS Provinsi Jawa Tengah
+### 3. Load (Pemindahan ke Target)
 
-#### Data Analysis
+- **Target:** Database PostgreSQL Cloud di hosting **Aiven**.
+- **Skema Database:**
+  - Tabel Target: `data_polda_jateng`
+  - Skema Kolom utama: `kabupaten_kota`, `korban_meninggal`, `korban_luka_berat`, `korban_luka_ringan`, `mobil_penumpang`, `bus`, `truk`, `sepeda_motor`, `jumlah_kendaraan`, `jalan_kondisi_baik`, `jalan_kondisi_sedang`, `jalan_kondisi_rusak`, `jalan_kondisi_rusak_berat`, `suhu_avg`, `kelembaban_avg`, `curah_hujan`, `hari_hujan`, `penyinaran_matahari`.
+- **Proses Load:**
+  - Data hasil pembersihan diekspor ke local storage `data/processed/data_polda_jateng_cleaned.csv` sebagai pencadangan.
+  - Upload data ke database menggunakan library `SQLAlchemy` dengan metode `to_sql` menggunakan opsi `if_exists='replace'` dan skema transaksi aman.
+- **Penanganan Duplikasi & Integritas Data:**
+  - Pengecekan tipe data secara ketat dilakukan pada tingkat Pandas sebelum data dimigrasikan ke PostgreSQL.
+  - Validasi skema kolom sebelum eksekusi insert untuk mencegah kegagalan migrasi di server database cloud.
 
-- **Format & Structure**: Tabular (CSV/Excel)
-- **Data Volume**: Small
-- **Data Fields**: Kondisi Jalan (Baik, Sedang, Rusak, Rusak Berat)
-- **Quality Metrics**: Crucial untuk korelasi kecelakaan akibat faktor infrastruktur fisik
+---
 
-### 2.4 Data Cuaca & Lingkungan (Google Earth Engine - GEE)
+## Arsitektur/Workflow ETL
 
-#### Source Details
+- **Alur Modular:** Program dirancang menggunakan pola **Clean Architecture** yang modular. Setiap fase diisolasi dalam file skrip mandiri agar program bersifat _reusable_, mudah dikelola, dan memiliki alur presentasi yang jelas.
+- **Teknologi yang Digunakan:**
+  - **ETL & Database:** Python, Pandas, Numpy, SQLAlchemy, Psycopg2-binary, Python-dotenv
+  - **Machine Learning:** Scikit-learn (RandomForestRegressor, train_test_split, metrics), Joblib
+  - **Visualisasi & Serving (Rencana/Opsional):** Streamlit, Matplotlib, Seaborn
 
-- **Dataset Name**: ERA5-Land Monthly Averaged / CHIRPS Daily
-- **Provider**: ECMWF / UC Santa Barbara (via GEE API)
-- **Authentication Method**: Service Account / OAuth2
+---
+
+## Kode Program
+
+### Struktur Kode:
+
+```
+├── config/
+│   └── settings.py          # Konfigurasi parameter model, fitur, dan path folder
+├── src/
+│   ├── ingestion.py         # Ekstraksi dan pembacaan data mentah (.csv)
+│   ├── preprocessing.py     # Logika pembersihan, merging, dan imputasi median
+│   ├── database.py          # Logika koneksi dan query upload/fetch database Aiven
+│   └── training.py          # Logika training, evaluasi, dan ekspor model Random Forest
+└── main.py                  # Orchestrator utama untuk menjalankan pipeline
+```
+
+### Machine Learning:
+
+- Menggunakan algoritma **Random Forest Regressor** dengan metrik evaluasi berupa **Mean Absolute Error (MAE)** untuk mengukur rata-rata selisih prediksi dan **R2 Score** untuk mengukur variabilitas target yang dapat dijelaskan oleh fitur prediktor.
+
+---
+
+## 🚀 Panduan Menjalankan Program
+
+Instruksi instalasi package dan cara menjalankan pipeline data secara lengkap dapat Anda lihat pada file dokumentasi teknis:
+👉 **[WORKFLOW.md](WORKFLOW.md)**
