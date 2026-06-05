@@ -29,13 +29,13 @@ Proyek ini dikembangkan untuk menganalisis korelasi antara tingkat fatalitas kec
 
 ## Serving Analisis
 
-Analisis pada proyek ini meliputi ekstraksi data dari laporan resmi BPS Jateng (korban kecelakaan, jumlah kendaraan, panjang jalan) dan data stasiun BMKG (cuaca), pembersihan, sinkronisasi nama daerah, serta penyimpanan ke database Aiven PostgreSQL. Data yang telah tersimpan siap disajikan ke platform visualisasi seperti PowerBI, Tableau, atau Streamlit untuk menganalisis pola kecelakaan per wilayah, korelasi kerusakan jalan terhadap fatalitas, dan dampak curah hujan tinggi terhadap frekuensi kecelakaan.
+Analisis data dan visualisasi interaktif (seperti grafik korelasi jalan rusak terhadap fatalitas dan peta sebaran kerawanan) disajikan menggunakan platform **Looker Studio** yang langsung terhubung ke database PostgreSQL Aiven.
 
 ---
 
 ## Serving Machine Learning
 
-Model Machine Learning yang dikembangkan dilatih untuk memprediksi jumlah korban meninggal (`korban_meninggal`) berdasarkan fitur-fitur kendaraan, jalan, dan cuaca. Model ini diekspor ke dalam bentuk serialized file `.pkl` (`random_forest_polda.pkl` & `model_features.pkl`) di dalam folder `models/`. File ini siap disajikan secara langsung (_serving_) ke aplikasi web Streamlit untuk memprediksi potensi korban kecelakaan di suatu wilayah berdasarkan kondisi real-time yang diinputkan pengguna.
+Model Machine Learning yang dikembangkan dilatih untuk memprediksi jumlah korban meninggal (`korban_meninggal`) berdasarkan fitur-fitur kendaraan, jalan, dan cuaca. Model ini diekspor ke dalam bentuk serialized file `.pkl` (`random_forest_polda.pkl` & `model_features.pkl`) di dalam folder `models/`. File ini disajikan melalui aplikasi **Streamlit** (yang dapat dijalankan dengan `app.py`) sebagai simulator prediksi tingkat fatalitas korban berdasarkan masukan parameter wilayah secara real-time. Detail penjelasan aplikasi web ini dapat diakses di **[STREAMLIT.md](STREAMLIT.md)**.
 
 ---
 
@@ -102,6 +102,7 @@ Model Machine Learning yang dikembangkan dilatih untuk memprediksi jumlah korban
 │   ├── preprocessing.py     # Logika pembersihan, merging, dan imputasi median
 │   ├── database.py          # Logika koneksi dan query upload/fetch database Aiven
 │   └── training.py          # Logika training, evaluasi, dan ekspor model Random Forest
+├── app.py                   # Presentation layer / Dashboard Web Streamlit & Simulator
 └── main.py                  # Orchestrator utama untuk menjalankan pipeline
 ```
 
@@ -113,5 +114,5 @@ Model Machine Learning yang dikembangkan dilatih untuk memprediksi jumlah korban
 
 ## 🚀 Panduan Menjalankan Program
 
-Instruksi instalasi package dan cara menjalankan pipeline data secara lengkap dapat Anda lihat pada file dokumentasi teknis:
-👉 **[WORKFLOW.md](WORKFLOW.md)**
+* **Pipeline Data (ETL & ML Training):** Cara melakukan instalasi dan menjalankan pipeline data secara lengkap tercantum di **[WORKFLOW.md](WORKFLOW.md)**.
+* **Dashboard Visualisasi & Simulator (Streamlit):** Cara menjalankan dashboard web interaktif secara lengkap tercantum di **[STREAMLIT.md](STREAMLIT.md)**.

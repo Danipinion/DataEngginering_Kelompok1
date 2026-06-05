@@ -5,3 +5,5 @@ sqlalchemy
 psycopg2-binary
 joblib
 python-dotenv
+streamlit
+plotly
