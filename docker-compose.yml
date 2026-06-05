@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  predictor:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: polda_jateng_predictor
+    restart: unless-stopped
+    ports:
+      - "8501:8501"
+    env_file:
+      - .env
+    volumes:
+      # Mount directories to persist raw/processed datasets and model weights
+      - ./data:/app/data
+      - ./models:/app/models
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
